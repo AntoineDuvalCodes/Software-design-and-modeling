@@ -1,4 +1,4 @@
-package Bank_system;
+package Operations;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,8 @@ public class OperationHistory {
 	public ArrayList<Operation> GetOperations(){
 		return operations;
 	}
-	public void AddOperationToHistory(Operation operation){
-		operations.add(operation);
+	
+	public void AddOperationToHistory(Operation payment){
+		operations.add(payment);
 	}
 }

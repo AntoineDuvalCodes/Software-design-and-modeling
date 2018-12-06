@@ -1,23 +1,35 @@
-package Bank_system;
+package Banks;
 
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
-public class Account {
+import Operations.Operation;
+import Operations.OperationHistory;
+
+public class Account1 {
 	
 	private String owner_name, ID;
 	private long opening_date;
-	private Double balance;
+	private int balance;
 	private OperationHistory account_history;
+	private Bank bank;
 	
-	
-	public Account(String owner_name, Double balance){
-		this.owner_name = owner_name;
-		if(balance>0){
-			this.balance = balance;
+	public Account1(String owner_name, int balance, Bank bank) throws InvalidCreationException{
+		if (owner_name.length() ==0 || Pattern.compile( "[0-9]" ).matcher( owner_name ).find()){
+			throw new InvalidCreationException("Size of the name must be greater than 0 and must not include numbers");
 		}else{
-			this.balance = 0.0;
+			this.owner_name = owner_name;
+
 		}
+		if(balance>0){
+			
+			this.balance = balance;
+			
+		}else{
+			throw new InvalidCreationException("Negative balance unauthorised");
+		}
+		this.bank = bank;
 		OpenAccount();
 	}
 	
@@ -52,14 +64,15 @@ public class Account {
 		return account_history;
 	}
 
+	
 	public void addOperationToAccountHistory(Operation operation) {
 		account_history.AddOperationToHistory(operation);
 	}
 
-	public void setBalance(Double balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	public Double getBalance(){
+	public int getBalance(){
 		return balance;
 	}
 	
