@@ -1,18 +1,18 @@
 package Operations;
 
-import Banks.Account1;
+import Accounts.Account;
 import Banks.Bank;
 import Banks.CentralBank;
 
 public class InterbankPayment implements Operation {
 
 	private int amount;
-	private Account1 account_sender, account_receiver;
-	private Bank bank_sender, bank_receiver;
+	private Account account_sender, account_receiver;
+	private Bank  bank_receiver;
 	private CentralBank central_bank;
 	
-	public InterbankPayment(CentralBank central_bank,Bank bank_sender, Bank bank_receiver, Account1 account_sender, Account1 account_receiver, int amount){
-		this.bank_sender = bank_sender;
+	public InterbankPayment(CentralBank central_bank, Bank bank_receiver, Account account_sender, Account account_receiver, int amount){
+		
 		this.bank_receiver = bank_receiver;
 		this.account_sender = account_sender;
 		this.account_receiver = account_receiver;

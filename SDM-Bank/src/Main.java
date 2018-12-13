@@ -2,19 +2,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Banks.Account1;
 import Banks.Bank;
-import Banks.DebitAccount;
 import Banks.InvalidCreationException;
-import Operations.Operation;
 
 public class Main {
 
 	private static ArrayList<Bank> banks;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//Accounts account = new Accounts("Antoine",100.0);
+		
         boolean is_running = true;
         Scanner input;
         banks = new ArrayList<>();
@@ -34,6 +30,9 @@ public class Main {
 
             }
             
+            //This menu is not fully working
+            
+            
             switch (user_choice){
             
             	case 1:
@@ -44,23 +43,34 @@ public class Main {
             		break;
             	case 2:
             		
-                	System.out.println("\n\nCreate account\n\n");
-                	createAccount();
+                	System.out.println("\n\nCreate Basic account\n\n");
+                	createBasicAccount();
             		break;
-            	case 3:
+            	case 3: 
+            		System.out.println("\n\nCreate Debit account\n\n");
+            		
+            		break;
+            	case 4:
+            		System.out.println("\n\nCreate Deposit account\n\n");
+            		break;
+            	case 5:
+            		System.out.println("\n\nCreate Loan account\n\n");
+            		break;
+            	case 6:
                 	System.out.println("\n\nMake operation\n\n");
                 	subMenuMakeOperations();
             		break;
-            	case 4:
+            	case 7:
                 	System.out.println("\n\nGet bank info\n\n");
                 	subMenuGetBankInfos();
             		break;
-            	case 5:
+            	case 8:
                 	System.out.println("\n\nGet accounts infos\n\n");
                 	subMenuGetAccountInfos();
             		break;
+            	
             		
-            	case 6:
+            	case 9:
                 	System.out.println("\n\nFinished\n\n");
                 	is_running = false;
             		break;
@@ -71,20 +81,7 @@ public class Main {
             		break;
             }
         }
-        
-        
-        
-       /*
-		DebitAccount debit_account = new DebitAccount("Julia",0.0,-100.0);
-		Account account = new Account("Hugo", 600.0);
-		
-		Operation operation1 = new Operation("xxx",account, debit_account);
-		boolean successfull = operation1.payment(700.0);
-		System.out.println(successfull);
-		System.out.println(operation1.getType());
-		*/
-		
-		
+        		
 
 	}
 	
@@ -126,7 +123,7 @@ public class Main {
 			System.out.println(e);
 		}
 	}
-	private static void createAccount(){
+	private static void createBasicAccount(){
 		
 		 Scanner input_bank_selection = new Scanner(System.in);
 		 System.out.println("\n\nSelect a bank:\n");
@@ -159,7 +156,7 @@ public class Main {
 				 System.out.println("Enter the account is balance");
 				 int account_balance = new Scanner(System.in).nextInt();
 				 try {
-					banks.get(selection-1).createAccount(customer_name,account_balance);
+					banks.get(selection-1).createBasicAccount(customer_name,account_balance);
 					System.out.println("Account created");
 				} catch (InvalidCreationException e) {
 					System.out.println(e);
@@ -192,7 +189,7 @@ public class Main {
 
 			for(int i = 0;i<banks.get(bank_selector).getAccounts().size();i++){
 				
-				System.out.println("  Account ID "+banks.get(bank_selector).getAccounts().get(i).getID());
+				System.out.println("  Account ID "+banks.get(bank_selector).getAccounts().get(i).getId());
 
 			}
 			

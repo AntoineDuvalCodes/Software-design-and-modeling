@@ -1,12 +1,22 @@
 package Accounts;
 
+import Banks.InvalidCreationException;
+import Operations.OperationHistory;
+
 public class DebitAccount extends AccountDecorator{
 
 	int maxDebit, debit;
 
-	public DebitAccount(Account account, int maxDebit, int debit){
+	public DebitAccount(Account account, int maxDebit, int debit) throws InvalidCreationException{
+		if(account.getBalance()>0 && debit>0 || maxDebit<debit){
+			throw new InvalidCreationException("To enter debit balance should be 0 or maxdebit>debit");
+
+		}
 		setMaxDebit(maxDebit);
 		setDebit(debit);
+		openAccount(account.getBank());
+		addOperationToAccountHistory(new OperationHistory(getBank(),true, this,OperationHistory.TYPE_OPEN_DEBIT_ACCOUNT,""));
+
 	}
 
 	@Override
@@ -18,9 +28,7 @@ public class DebitAccount extends AccountDecorator{
 	@Override
 	public void setDebit(int debit) {
 		// TODO Auto-generated method stub
-		if(maxDebit >= this.debit+debit){
-			this.debit += debit;
-		}
+			this.debit = debit;
 		
 	}
 

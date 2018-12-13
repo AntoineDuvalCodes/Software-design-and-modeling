@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import Banks.Bank;
 import Banks.InvalidCreationException;
+import Operations.OperationHistory;
 
 public class BasicAccount extends Account{
 
@@ -14,7 +15,7 @@ public class BasicAccount extends Account{
 				setOwnerName(owner_name);
 
 			}
-			if(balance>0){
+			if(balance>=0){
 				
 				setBalance(balance);
 				
@@ -23,6 +24,8 @@ public class BasicAccount extends Account{
 			}
 			
 			openAccount(bank);
+			addOperationToAccountHistory(new OperationHistory(getBank(),true, this,OperationHistory.TYPE_OPEN_BASIC_ACCOUNT,""));
+
 		}
 
 }

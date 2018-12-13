@@ -3,15 +3,17 @@ package Banks;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import Operations.Operation;
+import Accounts.Account;
+import Accounts.BasicAccount;
+import Accounts.DebitAccount;
 import Operations.OperationHistory;
 
 public class Bank {
 
 	private String name, ID;
 	private int balance;
-	private ArrayList<Account1> accounts;
-	private OperationHistory operation_history;
+	private ArrayList<Account> accounts;
+	private ArrayList<OperationHistory> operation_history;
 	
 	public Bank(String name, int bank_balance) throws InvalidCreationException{
 		if(name.length()==0){
@@ -29,18 +31,21 @@ public class Bank {
 
 		ID = UUID.randomUUID().toString();
 		accounts = new ArrayList<>();
-		operation_history = new OperationHistory();
+		operation_history = new ArrayList<>();
 
 	}
 
-	public void createAccount(String name, int balance) throws InvalidCreationException{
-		Account1 account = new Account1(name, balance, this);
+	public void createBasicAccount(String name, int balance) throws InvalidCreationException{
+		BasicAccount account = new BasicAccount(name, balance, this);
 		accounts.add(account);
 	}
-	
-	public void CreateDebitAccount(String name, int balance){
-		
+	public void createDebitAccount(String name, int balance, int debit, int maxDebit) throws InvalidCreationException{
+		BasicAccount account = new BasicAccount(name, balance, this);
+		DebitAccount debitAccount = new DebitAccount(account,maxDebit, debit);
+		accounts.add(debitAccount);
 	}
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -63,23 +68,23 @@ public class Bank {
 
 
 
-	public ArrayList<Account1> getAccounts() {
+	public ArrayList<Account> getAccounts() {
 		return accounts;
 	}
 
 
-	public void addAccounts(Account1 account) {
+	public void addAccounts(Account account) {
 		accounts.add(account);
 	}
 
 
-	public OperationHistory getOperation_history() {
+	public ArrayList<OperationHistory> getOperation_history() {
 		return operation_history;
 	}
 
 
-	public void addOperationHistory(Operation operation) {
-		operation_history.AddOperationToHistory(operation);
+	public void addOperationHistory(OperationHistory operation) {
+		operation_history.add(operation);
 	}
 	
 	
